@@ -2,6 +2,7 @@ package entity;
 
 import java.util.Date;
 
+
 public class Music {
     private int id;
     private String title;
