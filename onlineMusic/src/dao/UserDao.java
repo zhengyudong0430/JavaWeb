@@ -1,6 +1,4 @@
 package dao;
-
-
 import entity.User;
 import util.DBUtils;
 
@@ -45,4 +43,21 @@ public class UserDao {
         }
         return user;
     }
+    public void register(User user) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        try {
+            connection = DBUtils.getConnection();
+            ps = connection.prepareStatement("insert into user values(null,?,?,?,?,?)");
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getGender());
+            ps.setInt(4, user.getAge());
+            ps.setString(5, user.getEmail());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }finally {
+            DBUtils.getClose(connection, ps, null); } }
 }
