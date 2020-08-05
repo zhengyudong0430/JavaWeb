@@ -1,5 +1,6 @@
 package dao;
 import entity.User;
+
 import util.DBUtils;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 /**
  * 有关用户相关的数据库操作
  */
-public class UserDao {
+public  class UserDao {
     /**
      * 登录
      */
@@ -43,21 +44,64 @@ public class UserDao {
         }
         return user;
     }
-    public void register(User user) {
+    public User findUserByUsername (String name) {
         Connection connection = null;
-        PreparedStatement ps = null;
+        PreparedStatement statement = null;
+        ResultSet set = null;
+        User user = null;
         try {
             connection = DBUtils.getConnection();
-            ps = connection.prepareStatement("insert into user values(null,?,?,?,?,?)");
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getGender());
-            ps.setInt(4, user.getAge());
-            ps.setString(5, user.getEmail());
-            ps.executeUpdate();
-        } catch (Exception e) {
+            String sql = "select * from user where username = ? ";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,name);
+            set = statement.executeQuery();
+            if (set.next()) {
+                user = new User();
+                user.setId(set.getInt("id"));
+                user.setUsername(set.getString("username"));
+                user.setPassword(set.getString("password"));
+                user.setAge(set.getInt("age"));
+                user.setGender(set.getString("gender"));
+                user.setEmail(set.getString("email"));
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            DBUtils.getClose(connection, ps, null); } }
+            DBUtils.getClose(connection,statement,set);
+        }
+        return user;
+    }
+    public int register (User user) {
+        Connection connection = DBUtils.getConnection();
+        PreparedStatement statement = null;
+        int ret = 0;
+        try {
+            String sql = "insert into user values (null,?,?,?,?,?) ";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,user.getUsername());
+            statement.setString(2,user.getPassword());
+            statement.setInt(3,user.getAge());
+            statement.setString(4,user.getGender());
+            statement.setString(5,user.getEmail());
+            ret = statement.executeUpdate();
+            if (ret != 1) {
+                System.out.println("注册失败");
+                return 0;
+            }
+            System.out.println("注册成功");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            DBUtils.getClose(connection,statement,null);
+        }
+        return ret;
+    }
+
 }
+
+
+

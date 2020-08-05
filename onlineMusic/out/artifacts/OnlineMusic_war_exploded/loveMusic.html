@@ -13,7 +13,7 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <title>兽兽的在线播放器</title>
+    <title>兽兽播放器实现</title>
 
     <link rel="shortcut icon" href="#" />
 
@@ -21,6 +21,13 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
     <script src="js/jquery-3.1.1.min.js"></script>
+    <style>
+        #body{
+            background-image: url("images/1.jpg");
+            background-size:100% 100%;
+            background-attachment: fixed;
+        }
+    </style>
     <!-- 3. 导入bootstrap的js文件 -->
     <!-- <script src="js/bootstrap.min.js"></script>-->
     <style type="text/css">
@@ -84,7 +91,7 @@
         });
     </script>
 </head>
-<body>
+<body id="body">
 <div class="container">
     <h3 style="text-align: center">我喜欢的列表</h3>
     <div style="float: left;">
