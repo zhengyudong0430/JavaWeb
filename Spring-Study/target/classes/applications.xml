@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           https://www.springframework.org/schema/beans/spring-beans.xsd">
+   <!-- <bean id="myName" class="java.lang.String"> <constructor-arg value="小比特" /> </bean><-->
+    <!-- 不需要其他 bean 的依赖 -->
+    <bean id="鲁迅" class="com.bit.Author">
+        <property name="id" value="1" />
+        <property name="name" value="鲁迅" />
+    </bean>
+    <bean id="老舍" class="com.bit.Author">
+        <property name="id" value="2" />
+        <property name="name" value="老舍" />
+    </bean> <bean id="大刘" class="com.bit.Author">
+    <property name="id" value="3" />
+    <property name="name" value="大刘" />
+</bean> <!-- 需要以他 bean 作为依赖 -->
+    <bean id="狂人日记" class="com.bit.Book">
+        <property name="id" value="1" />
+        <property name="author" ref="鲁迅" />
+        <property name="title" value="狂人日记" />
+    </bean> <bean id="呐喊" class="com.bit.Book">
+    <property name="id" value="2" />
+    <property name="author" ref="鲁迅" />
+    <property name="title" value="呐喊" />
+</bean> <bean id="孔乙己" class="com.bit.Book">
+    <property name="id" value="3" />
+    <property name="author" ref= "鲁迅" />
+    <property name="title" value="孔乙己" />
+</bean> <bean id="骆驼祥子" class="com.bit.Book">
+    <property name="id" value="4" />
+    <property name="author" ref="老舍" />
+    <property name="title" value="骆驼祥子" />
+</bean>
+    <bean id="三体" class="com.bit.Book">
+        <property name="id" value="5" />
+        <property name="author" ref="大刘" />
+        <property name="title" value="三体" />
+    </bean> <!-- 带有集合 -->
+    <bean id="三味书屋" class="com.bit.BookStore">
+        <property name="bookList"> <list><ref bean="孔乙己" />
+            <ref bean="呐喊" />
+            <ref bean="狂人日记" />
+        </list>
+        </property>
+    </bean>
+</beans>
