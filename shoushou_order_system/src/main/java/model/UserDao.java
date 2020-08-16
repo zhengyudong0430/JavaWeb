@@ -1,5 +1,6 @@
 package model;
 
+import com.google.gson.Gson;
 import util.OrderSystemException;
 
 import java.sql.Connection;
